@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <link rel="icon" type="image/png" href="static/logos/graduation-hat.png" sizes="16x16" />
+    <meta charset="UTF-8" />
+    <title>FuturEdu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="project-brand">
+                <img src="static/logos/graduation-hat.png" alt="Logo" class="logo-img">
+                <h1 class="project-name">FuturEdu</h1>
+            </div>
+
+            <nav class="menu">
+                <a href="#" id="dashboard-menu" class="menu-item" onclick="showDashboard()">Dashboard</a>
+                <a href="#" id="profile-menu" class="menu-item" onclick="showProfile()">Perfil</a>
+                <a href="#" id="prediction-menu" class="menu-item" onclick="showPrediction()">Predição</a>
+            </nav>
+        </aside>
+
+
+        <main class="main-content">
+            <section id="dashboard-section" class="dashboard-section hidden">
+                <h1 class="page-title">Dashboard</h1>
+                <div class="chart-container"><canvas id="predictionChart"></canvas></div>
+                <div class="chart-container"><canvas id="ageChart"></canvas></div>
+                <div class="chart-container"><canvas id="genderChart"></canvas></div>
+                <div class="chart-container"><canvas id="distributionChart"></canvas></div>
+                <div class="chart-container"><canvas id="parentalEducationChart"></canvas></div>
+                <div class="chart-container"><canvas id="studyTimeChart"></canvas></div>
+                <div class="chart-container"><canvas id="parentalSupportChart"></canvas></div>
+                <div class="chart-container"><canvas id="extracurricularChart"></canvas></div>
+                <div class="chart-container"><canvas id="sportsChart"></canvas></div>
+            </section>
+
+            <section id="profile-section" class="profile-section hidden fade-in">
+                <h1 class="page-title">Perfil do Aluno</h1>
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <img src="static/logos/boy.png" alt="Foto de Perfil" class="profile-img">
+                        <div>
+                            <h2 class="profile-name">João Silva</h2>
+                            <p class="profile-grade">Classe Predita: <strong>A</strong></p>
+                        </div>
+                    </div>
+                    <div class="profile-info-grid">
+                        <div><strong>Idade:</strong> 17</div>
+                        <div><strong>Gênero:</strong> Masculino</div>
+                        <div><strong>Etnia:</strong> Caucasiano</div>
+                        <div><strong>Educação dos Pais:</strong> Superior</div>
+                        <div><strong>Horas de Estudo:</strong> 12h/semana</div>
+                        <div><strong>Faltas:</strong> 3</div>
+                        <div><strong>Participações:</strong> Tutoria, Música, Esportes</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="prediction-section" class="prediction-section">
+                <h1 class="page-title">Prediction Form</h1>
+                <p class="subtitle">Preencha os dados abaixo para gerar uma predição personalizada.</p>
+                <div class="form-card">
+                    <form id="predict-form">
+                        <div class="form-group">
+                            <label for="age">Idade (15-18 anos):</label>
+                            <input type="number" id="age" name="age" min="15" max="18" placeholder="Ex: 17" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gênero:</label>
+                            <select id="gender" name="gender" required>
+                                <option value="" disabled selected>Selecione</option>
+                                <option value="0">Masculino</option>
+                                <option value="1">Feminino</option>
+                                <option value="2">Outro</option>
+                                <option value="3">Prefiro não dizer</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="ethnicity">Etnia:</label>
+                            <select id="ethnicity" name="ethnicity" required>
+                                <option value="" disabled selected>Selecione</option>
+                                <option value="0">Caucasiano</option>
+                                <option value="1">Afroamericano</option>
+                                <option value="2">Asiático</option>
+                                <option value="3">Outro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="parentalEducation">Educação dos Pais:</label>
+                            <select id="parentalEducation" name="parentalEducation" required>
+                                <option value="" disabled selected>Selecione</option>
+                                <option value="0">Incompleto</option>
+                                <option value="1">Ensino Médio</option>
+                                <option value="2">Algum Ensino Superior</option>
+                                <option value="3">Graduação</option>
+                                <option value="4">Pós-graduação</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="studyTimeWeekly">Horas de Estudo Semanais:</label>
+                            <input type="number" id="studyTimeWeekly" name="studyTimeWeekly" min="0" max="40"
+                                placeholder="Ex: 10" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="absences">Número de Faltas:</label>
+                            <input type="number" id="absences" name="absences" min="0" max="40" placeholder="Ex: 5"
+                                required>
+                        </div>
+
+                        <fieldset class="participation-fieldset">
+                            <legend>Participação em Atividades</legend>
+
+                            <div class="activity-item">
+                                <span>Recebe Tutoria?</span>
+                                <label><input type="radio" name="tutoring" value="1"> Sim</label>
+                                <label><input type="radio" name="tutoring" value="0" checked> Não</label>
+                            </div>
+
+                            <div class="activity-item">
+                                <span>Suporte Parental</span>
+                                <select id="parentalSupport" name="parentalSupport" required>
+                                    <option value="0">Nenhum</option>
+                                    <option value="1">Baixo</option>
+                                    <option value="2">Moderado</option>
+                                    <option value="3">Alto</option>
+                                    <option value="4">Muito Alto</option>
+                                </select>
+                            </div>
+
+                            <div class="activity-item">
+                                <span>Extracurriculares</span>
+                                <label><input type="radio" name="extracurricular" value="1"> Sim</label>
+                                <label><input type="radio" name="extracurricular" value="0" checked> Não</label>
+                            </div>
+
+                            <div class="activity-item">
+                                <span>Esportes</span>
+                                <label><input type="radio" name="sports" value="1"> Sim</label>
+                                <label><input type="radio" name="sports" value="0" checked> Não</label>
+                            </div>
+
+                            <div class="activity-item">
+                                <span>Música</span>
+                                <label><input type="radio" name="music" value="1"> Sim</label>
+                                <label><input type="radio" name="music" value="0" checked> Não</label>
+                            </div>
+
+                            <div class="activity-item">
+                                <span>Voluntariado</span>
+                                <label><input type="radio" name="volunteering" value="1"> Sim</label>
+                                <label><input type="radio" name="volunteering" value="0" checked> Não</label>
+                            </div>
+                        </fieldset>
+
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-submit">Submit</button>
+                            <button type="button" class="btn-clear">Clear</button>
+                        </div>
+                    </form>
+                </div>
+
+                <h2 class="result-title">Resultado:</h2>
+                <p id="result"></p>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function setActiveMenu(activeId) {
+            const items = document.querySelectorAll('.menu-item');
+            items.forEach(item => item.classList.remove('active'));
+            document.getElementById(activeId).classList.add('active');
+        }
+
+        function hideAllSections() {
+            document.getElementById('dashboard-section').classList.add('hidden');
+            document.getElementById('prediction-section').classList.add('hidden');
+            document.getElementById('profile-section').classList.add('hidden');
+        }
+
+        function showDashboard() {
+            hideAllSections();
+            document.getElementById('dashboard-section').classList.remove('hidden');
+            setActiveMenu('dashboard-menu');
+        }
+
+        function showPrediction() {
+            hideAllSections();
+            document.getElementById('prediction-section').classList.remove('hidden');
+            setActiveMenu('prediction-menu');
+        }
+
+        function showProfile() {
+            hideAllSections();
+            document.getElementById('profile-section').classList.remove('hidden');
+            setActiveMenu('profile-menu');
+        }
+
+        document.querySelector('.btn-clear').addEventListener('click', function () {
+            document.getElementById('predict-form').reset();
+            document.getElementById('result').textContent = '';
+        });
+    </script>
+    <script src="/static/script.js"></script>
+</body>
+
+</html>
